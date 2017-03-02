@@ -27,8 +27,15 @@ import static org.junit.Assert.*;
  * CE1: Multas hechas a devolciones realizadas en fechas posteriores
  * a la limite. (multa multa_diaria*dias_retraso)
  * 
+ * CE2: Consultar los items que posee un cliente
  * 
+ * CE3: Consultar los items disponibles para alquiler
  * 
+ * CE4: Consultar el valor de la multa del alquiler, dado el id del item
+ *
+ * CE5: Registrar el alquiler de un item
+ * 
+ * CE6: Consultar costo
  */
 public class AlquilerTest {
 
