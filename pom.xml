@@ -6,9 +6,25 @@
     <artifactId>Videotienda</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-
+    
     <name>Videotienda</name>
-
+    <servlet>
+         <servlet-name>Faces Servlet</servlet-name>
+         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+         <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list> 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -87,7 +103,7 @@
                     <format>xml</format>
                 </formats>
             </configuration>
-        </plugin>            
+        </plugin>           
     </plugins>
 </reporting>
     
