@@ -3,9 +3,45 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head></h:head>
-
     <h:body>
-
-    </h:body>
+    <h:form id="Formulario_RegistroClientes">
+        <p:layout style="min-width:400px;min-height:500px;">
+            <p:layoutUnit position="west"  resizable="false" size="800">
+                <p:dataTable  var="ite" value="#{AlquilerItems.items}" selectionMode="single" selection="#{AlquilerItems.seleccionado2}" rowKey="#{ite.item.id}" >
+                    <p:column headerText="Item">
+                        <h:outputText value="#{ite.item.id}" />
+                </p:column> 
+                <p:column headerText="Item">
+                    <h:outputText value="#{ite.item.nombre}" />
+                </p:column> 
+                </p:dataTable>
+                <br>Seleccione el producto para consultar la multa </br>
+                <br><p:outputLabel value="#{AlquilerItems.producto}" > </p:outputLabel> <font color="white"></font> <p:outputLabel value="#{AlquilerItems.multa}" > </p:outputLabel> </br>
+                <br><p:commandButton  value="Consultar Multa" update="Formulario_RegistroClientes" actionListener="#{AlquilerItems.conMulta}"  ></p:commandButton> </br>
+    </p:layoutUnit>
+            
+    <p:layoutUnit position="center" >
+          <br> Bienvenido <font color="white">.....</font><p:outputLabel value="#{AlquilerItems.nombre}" > <font color="white">.....</font>
+          </p:outputLabel> <p:outputLabel value="#{AlquilerItems.documento}" ></p:outputLabel></br>
+           <p:dataTable  var="items" value="#{AlquilerItems.items1}" selectionMode="single" selection="#{AlquilerItems.seleccionado1}" rowKey="#{items.id}" >
+            <p:column headerText="Item">
+                        <h:outputText value="#{items.nombre}" />
+                </p:column>
+               
+            <p:column headerText="Id">
+                        <h:outputText value="#{items.id}" />
+                </p:column>  
+    </p:dataTable>
+          <br> Costo por dia: <p:outputLabel value="#{AlquilerItems.costo}" > </p:outputLabel> <font color="white">...</font> Total: <p:outputLabel value="#{AlquilerItems.total}" > </p:outputLabel> </br>
+          <br></br>
+          <br>Días que desea alquilar</br> 
+    <br> <p:inputText value="#{AlquilerItems.dias}" placeholder="Numero de dias" size="15"> </p:inputText> </br>
+    <br></br>
+    <p:commandButton  value="Alquilar" update="Formulario_RegistroClientes" actionListener="#{AlquilerItems.rentar}"  ></p:commandButton>    <font color="white">...</font>
+    <p:commandButton  value="Ver Costo" update="Formulario_RegistroClientes" actionListener="#{AlquilerItems.ver}"  ></p:commandButton> 
+    </p:layoutUnit>
+    </p:layout>
+    </h:form>
+ </h:body>
 
 </html>

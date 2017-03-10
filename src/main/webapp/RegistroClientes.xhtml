@@ -10,36 +10,31 @@
             <p:layoutUnit position="east">
                 
                 <br><font color="white">...........................</font><b>Registrate</b> </br>
+                
                 <br>  <p:inputText value="#{AlquilerItems.nombre}" placeholder="Nombre" size="15"> </p:inputText> <font color="white">-.</font>
-        <p:inputText value="#{AlquilerItems.documento}" placeholder="Documento" size="15" ></p:inputText></br>
-        <br>  <p:inputText value="#{AlquilerItems.telefono}" placeholder="Telefono" size="15"></p:inputText> <font color="white">-.</font> 
-        <p:inputText value="#{AlquilerItems.direccion}" placeholder="Direccion" size="15"></p:inputText></br>
-        <br><p:inputText value="#{AlquilerItems.email}" placeholder="Email" size="40"></p:inputText></br>
-        
-        <br></br>
-        <p:commandButton  value="Registrarse" update="Formulario_RegistroClientes" actionListener="#{AlquilerItems.registrarse}" ></p:commandButton>
+                <p:inputText value="#{AlquilerItems.documento}" placeholder="Documento" size="15" ></p:inputText></br>
+              
+                <br>  <p:inputText value="#{AlquilerItems.telefono}" placeholder="Telefono" size="15"></p:inputText> <font color="white">-.</font> 
+                <p:inputText value="#{AlquilerItems.direccion}" placeholder="Direccion" size="15"></p:inputText></br>
+             
+                <br><p:inputText value="#{AlquilerItems.email}" placeholder="Email" size="40"></p:inputText></br>
+                <br></br>
+                <p:commandButton  value="Registrarse" update="Formulario_RegistroClientes" actionListener="#{AlquilerItems.registrarse}" ></p:commandButton>
         
      
     
     </p:layoutUnit>
     <p:layoutUnit position="center" >
    
-        <p:dataTable var="clientes" value="#{AlquilerItems.clientes}" selectionMode="single" selection="#{AlquilerItems.seleccionado}" rowKey="#{clientes.documento}">
-         <p:column headerText="Id">
+        <p:dataTable  var="clientes" value="#{AlquilerItems.clientes}" selectionMode="single" selection="#{AlquilerItems.seleccionado}" rowKey="#{clientes.documento}" >
+         <p:ajax event="rowSelect" listener="#{AlquilerItems.onRowSelect}" />
+            <p:column headerText="Id">
                         <h:outputText value="#{clientes.nombre}" />
                     </p:column>
         <p:column headerText="Documento">
                         <h:outputText value="#{clientes.documento}" />
                     </p:column>
-        <p:column headerText="Telefono">
-                        <h:outputText value="#{clientes.telefono}" />
-                    </p:column>
-        <p:column headerText="Dirección">
-                        <h:outputText value="#{clientes.direccion}" />
-                    </p:column>
-        <p:column headerText="Email">
-                        <h:outputText value="#{clientes.email}" />
-                    </p:column>
+   
         
     </p:dataTable>
     </p:layoutUnit>

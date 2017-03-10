@@ -22,7 +22,6 @@ import java.util.Map;
 
 
 public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Serializable{
-    
     private static final int MULTA_DIARIA=5000;
     private final static long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
     
@@ -233,7 +232,9 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
     
     
     
-    private void poblar() {
+   
+    @Override
+    public void poblar() {
         
         TipoItem ti1=new TipoItem(1,"Video");
         TipoItem ti2=new TipoItem(2,"Juego");
@@ -275,12 +276,11 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
         clientes.put(c1.getDocumento(), c1);
         clientes.put(c2.getDocumento(), c2);
         clientes.put(c3.getDocumento(), c3);
-
+        
     }
 
 
 
-    
-
+  
 }
 
