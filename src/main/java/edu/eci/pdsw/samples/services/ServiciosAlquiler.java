@@ -11,18 +11,9 @@ import java.util.List;
  *
  * @author 2106913
  */
-public abstract class ServiciosAlquiler {
+public interface ServiciosAlquiler {
 
-    private static ServiciosAlquiler instance = new ServiciosAlquilerItemsStub();
-
-
-    public static ServiciosAlquiler getInstance() throws RuntimeException {
-        return instance;
-    }
-    protected ServiciosAlquiler() {
-        
-    }
-
+    
     public abstract int valorMultaRetrasoxDia();
     
     public abstract Cliente consultarCliente(long docu) throws ExcepcionServiciosAlquiler;
@@ -71,7 +62,7 @@ public abstract class ServiciosAlquiler {
      * @param numdias el numero de dias que se le prestara el item
      * @pos el item ya no debe estar disponible, y debe estar asignado al
      * cliente
-     * @throws ExcepcionServiciosAlquiler si el identificador no corresponde con un item, o si
+     * @throws ExcepcionXX si el identificador no corresponde con un item, o si
      * el mismo ya esta alquilado
      */
     public abstract void registrarAlquilerCliente(Date date, long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler;
@@ -105,7 +96,4 @@ public abstract class ServiciosAlquiler {
 
     public abstract void vetarCliente(long docu, boolean estado) throws ExcepcionServiciosAlquiler;
 
-    public abstract void poblar();
-    
-   
 }

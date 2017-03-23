@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ItemMapper">
+    
+    <insert parameterType="map" id="agregarItemRentadoACliente" >
+                insert into VI_ITEMS values (#{item.id}, #{item.nombre}, #{item.descripcion} , #{item.fechaLanzamiento}, #{item.tarifaxDia} , #{item.formatoRenta},  #{item.genero},  #{item.tipo})
+    </insert> 
+
+    <select parameterType="map" id="getItems" resultMap="ItemResult">
+        select 
+        i.id, 
+        i.nombre,
+        i.descripcion,
+        i.fechalanzamiento,
+        i.tarifaxdia ,
+        i.formatorenta,
+        i.genero,
+        
+        ti.id as ti_id,
+        ti.descripcion as ti_descripcion 
+        
+        from VI_ITEMS as i
+        left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id
+    </select>
+    
+    <select parameterType="map" id="consultarItem" resultMap="ItemResult">
+        
+        select 
+        i.id, 
+        i.nombre,
+        i.descripcion,
+        i.fechalanzamiento,
+        i.tarifaxdia,
+        i.formatorenta ,
+        i.genero,
+        
+        ti.id as ti_id,
+        ti.descripcion as ti_descripcion 
+        
+        from VI_ITEMS as i
+        left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id         
+        WHERE i.id=#{id}
+    </select>
+    
+    <resultMap type='Item' id='ItemResult'>
+        <id property='id' column='id'/>
+        <result property='nombre' column='nombre'/>
+        <result property='descripcion' column='descripcion'/>
+        <result property='fechaLanzamiento' column='fechalanzamiento'/>    
+        <result property='tarifaxDia' column='tarifaxDia'/>
+	<result property="formatoRenta" column="formatoRenta"/>
+        <result property='genero' column='genero'/> 
+        <association property="tipo" javaType="TipoItem" columnPrefix="ti_" resultMap="edu.eci.pdsw.sampleprj.dao.mybatis.mappers.TipoItemMapper.TipoItemResult" ></association>  
+    </resultMap>
+    
+</mapper>

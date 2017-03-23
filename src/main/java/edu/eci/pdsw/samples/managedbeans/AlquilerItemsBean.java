@@ -10,6 +10,7 @@ import edu.eci.pdsw.samples.entities.Item;
 import edu.eci.pdsw.samples.entities.ItemRentado;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.pdsw.samples.services.ServiciosAlquiler;
+import edu.eci.pdsw.samples.services.ServiciosAlquilerFactory;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -30,7 +31,7 @@ import org.primefaces.event.SelectEvent;
 
 public class AlquilerItemsBean implements Serializable {
     
-    ServiciosAlquiler sp = ServiciosAlquiler.getInstance();
+    ServiciosAlquiler sp = ServiciosAlquilerFactory.getInstance().getServiciosAlquiler();
     
     
     private String nombre;
@@ -213,10 +214,8 @@ public class AlquilerItemsBean implements Serializable {
         }
     }
  
-    public AlquilerItemsBean() throws ExcepcionServiciosAlquiler {
-       sp.poblar();
-       clientes= sp.consultarClientes();
-       items1 = sp.consultarItemsDisponibles();   
+    public AlquilerItemsBean() {
+        
     }
     
     public void registrarse() throws ExcepcionServiciosAlquiler {

@@ -10,7 +10,8 @@ import edu.eci.pdsw.samples.entities.Item;
 import edu.eci.pdsw.samples.entities.ItemRentado;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.pdsw.samples.services.ServiciosAlquiler;
-import edu.eci.pdsw.samples.services.ServiciosAlquilerItemsStub;
+import edu.eci.pdsw.samples.services.ServiciosAlquilerFactory;
+import edu.eci.pdsw.samples.services.impl.ServiciosAlquilerItemsStub;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +53,7 @@ public class AlquilerTest {
     
     @Test
     public void CF1Test() throws ExcepcionServiciosAlquiler{
-        ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
+        ServiciosAlquiler sa=ServiciosAlquilerFactory.getInstance().getServiciosAlquilerTesting();
         
         Item i1=new Item(sa.consultarTipoItem(1), 44, "Los 4 Fantasticos", "Los 4 Fantásticos  es una película de superhéroes  basada en la serie de cómic homónima de Marvel.", java.sql.Date.valueOf("2005-06-08"), 2000, "DVD", "Ciencia Ficcion");        
         sa.registrarCliente(new Cliente("Juan Perez",3842,"24234","calle 123","aa@gmail.com"));
@@ -71,7 +72,7 @@ public class AlquilerTest {
 
     @Test
     public void CE1Test() throws ExcepcionServiciosAlquiler{
-        ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
+        ServiciosAlquiler sa=ServiciosAlquilerFactory.getInstance().getServiciosAlquilerTesting();
         
         Item i1=new Item(sa.consultarTipoItem(1), 55, "Los 4 Fantasticos", "Los 4 Fantásticos  es una película de superhéroes  basada en la serie de cómic homónima de Marvel.", java.sql.Date.valueOf("2005-06-08"), 2000, "DVD", "Ciencia Ficcion");        
         sa.registrarCliente(new Cliente("Juan Perez",9843,"24234","calle 123","aa@gmail.com"));
@@ -90,7 +91,7 @@ public class AlquilerTest {
     
    @Test
     public void CF2Test() throws ExcepcionServiciosAlquiler{
-        ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
+        ServiciosAlquiler sa=ServiciosAlquilerFactory.getInstance().getServiciosAlquilerTesting();
         
         Item i1=new Item(sa.consultarTipoItem(1), 55, "Los 4 Fantasticos", "Los 4 Fantásticos  es una película de superhéroes  basada en la serie de cómic homónima de Marvel.", java.sql.Date.valueOf("2005-06-08"), 2000, "DVD", "Ciencia Ficcion");        
         sa.registrarCliente(new Cliente("Juan Perez",98333,"24234","calle 123","aaw@gmail.com"));
@@ -110,7 +111,7 @@ public class AlquilerTest {
     
     @Test
     public void CE3Test() throws ExcepcionServiciosAlquiler{
-        ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
+        ServiciosAlquiler sa=ServiciosAlquilerFactory.getInstance().getServiciosAlquilerTesting();
         
         Item i1=new Item(sa.consultarTipoItem(1), 55, "Los 4 Fantasticos", "Los 4 Fantásticos  es una película de superhéroes  basada en la serie de cómic homónima de Marvel.", java.sql.Date.valueOf("2005-06-08"), 2000, "DVD", "Ciencia Ficcion");        
         Item i2=new Item(sa.consultarTipoItem(1), 54, "Spiderman", "Spiderman", java.sql.Date.valueOf("2005-06-08"), 2000, "DVD", "Ciencia Ficcion");        
