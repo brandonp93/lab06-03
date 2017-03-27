@@ -116,9 +116,6 @@
         
     </select>
     
-    <select id="consultarItemRentadoId" resultType="int">
-        SELECT IFNULL(MAX(id), 0) FROM VI_ITEMRENTADO;
-    </select>
     
     <select parameterType="map" id="consultarItemRentado" resultMap="ClienteResult">
             select 
