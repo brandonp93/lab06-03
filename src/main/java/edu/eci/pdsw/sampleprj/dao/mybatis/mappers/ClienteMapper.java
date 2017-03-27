@@ -18,8 +18,7 @@ public interface ClienteMapper {
     
     /**
      * Registrar un nuevo item rentado asociado al cliente identificado
-     * con 'idc' y relacionado con el item identificado con 'idi'
-     * @param idir
+     * con 'idc' y relacionado con el item identificado con 'id
      * @param id
      * @param idit
      * @param fechainicio
