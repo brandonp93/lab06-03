@@ -44,8 +44,7 @@ public interface ClienteMapper {
     public List<ItemRentado> consultarItemsCliente(@Param ("idcliente") int idcliente);
     
     public ItemRentado consultarItemRentado(@Param ("id") int id);
-    
-    public int consultarItemRentadoId();
+  
     
     public void registrarDevolucion(@Param ("iditem") int iditem);
     
