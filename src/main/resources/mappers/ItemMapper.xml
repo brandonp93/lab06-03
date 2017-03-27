@@ -6,7 +6,7 @@
 <mapper namespace="edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ItemMapper">
     
     <insert parameterType="map" id="insertarItem" >
-                insert into VI_ITEMS values (#{item.id}, #{item.nombre}, #{item.descripcion} , #{item.fechaLanzamiento}, #{item.tarifaxDia} , #{item.formatoRenta},  #{item.genero},  #{item.tipo})
+                insert into VI_ITEMS values (#{item.id}, #{item.nombre}, #{item.descripcion} , #{item.fechaLanzamiento}, #{item.tarifaxDia} , #{item.formatoRenta},  #{item.genero},  #{item.tipo.id})
     </insert> 
 
     <select parameterType="map" id="getItems" resultMap="ItemResult">
