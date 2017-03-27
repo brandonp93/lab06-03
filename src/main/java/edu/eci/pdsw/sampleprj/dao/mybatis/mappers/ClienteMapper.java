@@ -1,10 +1,8 @@
 package edu.eci.pdsw.sampleprj.dao.mybatis.mappers;
 
-import edu.eci.pdsw.sampleprj.dao.PersistenceException;
 import edu.eci.pdsw.samples.entities.Cliente;
 import edu.eci.pdsw.samples.entities.ItemRentado;
 import edu.eci.pdsw.samples.entities.TipoItem;
-import edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler;
 import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

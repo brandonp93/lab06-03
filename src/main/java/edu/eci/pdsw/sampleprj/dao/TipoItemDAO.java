@@ -6,7 +6,6 @@
 package edu.eci.pdsw.sampleprj.dao;
 
 import edu.eci.pdsw.samples.entities.TipoItem;
-import java.util.List;
 
 /**
  *
