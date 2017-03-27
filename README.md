@@ -1,2 +1,1 @@
-# Labo05
-solo para fines academicos
+Laboratorio 6 parte 3
