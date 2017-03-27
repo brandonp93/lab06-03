@@ -17,6 +17,7 @@ public interface ClienteMapper {
     
     public Cliente consultarCliente(@Param ("id") int id); 
     
+    
     /**
      * Registrar un nuevo item rentado asociado al cliente identificado
      * con 'idc' y relacionado con el item identificado con 'idi'

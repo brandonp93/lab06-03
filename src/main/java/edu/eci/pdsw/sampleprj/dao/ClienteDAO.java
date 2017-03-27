@@ -16,7 +16,7 @@ import java.util.List;
  * @author hcadavid
  */
 public interface ClienteDAO {
-    
+     
     public void save(Cliente c) throws PersistenceException;
     
     public Cliente load(int id) throws PersistenceException;
