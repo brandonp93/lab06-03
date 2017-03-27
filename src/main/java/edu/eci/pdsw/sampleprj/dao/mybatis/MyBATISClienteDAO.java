@@ -9,9 +9,11 @@ import com.google.inject.Inject;
 import edu.eci.pdsw.sampleprj.dao.ClienteDAO;
 import edu.eci.pdsw.sampleprj.dao.PersistenceException;
 import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ClienteMapper;
-import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ItemMapper;
 import edu.eci.pdsw.samples.entities.Cliente;
-import edu.eci.pdsw.samples.entities.Item;
+import edu.eci.pdsw.samples.entities.ItemRentado;
+import edu.eci.pdsw.samples.entities.TipoItem;
+import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -23,22 +25,44 @@ public class MyBATISClienteDAO  implements ClienteDAO{
 
     @Override
     public void save(Cliente c) throws PersistenceException {
-        try{
-            clienteMapper.agregarItemRentadoACliente((int) c.getDocumento(), c.getRentados().get(c.getRentados().size()).getId(), 
-                    c.getRentados().get(c.getRentados().size()).getFechainiciorenta(), c.getRentados().get(c.getRentados().size()).getFechafinrenta());
-        }
-        catch(org.apache.ibatis.exceptions.PersistenceException e){
-            throw new PersistenceException("Error al registrar el item "+c.toString(),e);
-        }      }
-
+        clienteMapper.registrarCliente(c.getDocumento(), c.getNombre(), c.getTelefono(), c.getDireccion(), c.getEmail());
+    }
     @Override
     public Cliente load(int id) throws PersistenceException {
-        try{
-            return clienteMapper.consultarCliente(id);
-        }
-        catch(org.apache.ibatis.exceptions.PersistenceException e){
-            throw new PersistenceException("Error al consultar el item "+id,e);
-        }
+        return clienteMapper.consultarCliente(id);
     }
-     
+
+    @Override
+    public List<Cliente> consultarClientes() throws PersistenceException {
+        return clienteMapper.consultarClientes();
+    }
+
+    @Override
+    public ItemRentado consultarItemRentado(int id) throws PersistenceException {
+            return clienteMapper.consultarItemRentado(id);
+    }
+
+    @Override
+    public void registrarAlquilerCliente(long documento, int idit, Date fechainicio, Date fechafin) throws PersistenceException {
+        
+        
+        clienteMapper.registrarAlquilerCliente(documento, idit, fechainicio, fechafin);
+    }
+
+    @Override
+    public void registrarDevolucion(int iditem) throws PersistenceException {
+        clienteMapper.registrarDevolucion(iditem);
+    }
+
+    @Override
+    public void vetarCliente(long docu, boolean estado) throws PersistenceException {
+        clienteMapper.vetarCliente(docu); 
+    }
+
+    @Override
+    public TipoItem consultarTipoItem(int id) throws PersistenceException {
+        return clienteMapper.consultarTipoItem(id);
+    }
+
+    
 }

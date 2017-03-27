@@ -66,13 +66,26 @@ public class ServiciosAlquilerFactory {
     public ServiciosAlquiler getServiciosAlquiler(){
         return injector.getInstance(ServiciosAlquiler.class);   
     }
-
+    
+    public ClienteDAO getClienteDAO() {
+        return injector.getInstance(ClienteDAO.class);
+    }
+    
+    public ItemDAO getItemDAO() {
+        return injector.getInstance(ItemDAO.class);
+    }
 
     public ServiciosAlquiler getServiciosAlquilerTesting(){
         return testInjector.getInstance(ServiciosAlquiler.class);   
     }
 
-
+    public ClienteDAO getClienteDAOTesting() {
+        return testInjector.getInstance(ClienteDAO.class);
+    }
+    
+    public ItemDAO getItemDAOTesting() {
+        return testInjector.getInstance(ItemDAO.class);
+    }
     
     public static ServiciosAlquilerFactory getInstance(){
         return instance;

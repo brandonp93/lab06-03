@@ -5,7 +5,7 @@
   
 <mapper namespace="edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ItemMapper">
     
-    <insert parameterType="map" id="agregarItemRentadoACliente" >
+    <insert parameterType="map" id="insertarItem" >
                 insert into VI_ITEMS values (#{item.id}, #{item.nombre}, #{item.descripcion} , #{item.fechaLanzamiento}, #{item.tarifaxDia} , #{item.formatoRenta},  #{item.genero},  #{item.tipo})
     </insert> 
 
@@ -53,7 +53,33 @@
         <result property='tarifaxDia' column='tarifaxDia'/>
 	<result property="formatoRenta" column="formatoRenta"/>
         <result property='genero' column='genero'/> 
-        <association property="tipo" javaType="TipoItem" columnPrefix="ti_" resultMap="edu.eci.pdsw.sampleprj.dao.mybatis.mappers.TipoItemMapper.TipoItemResult" ></association>  
+        <association property="tipo" javaType="TipoItem" columnPrefix="ti_" resultMap="edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ClienteMapper.TipoItemResult" ></association>  
     </resultMap>
+    
+    <select parameterType="map" id="consultarItemsDisponibles" resultMap="ItemResult">
+        select 
+        *  
+        from VI_ITEMS 
+        where id not in (select ITEMS_id from VI_ITEMRENTADO)
+    </select>
+    
+    <update parameterType="map" id="actualizarTarifa">
+        update VI_ITEMS set tarifaxdia=#{tarifa} where id=#{id}
+    </update>
+    
+    <select parameterType="map" id="tipoItem" resultMap="ItemResult">
+        select 
+        *  
+        FROM VI_ITEM 
+        LEFT JOIN VI_ITEM on TIPOITEM_id=id 
+        WHERE id=#{id}
+    </select>
+    
+    <select parameterType="map" id="tipoItems" resultMap="ItemResult">
+        select 
+        *  
+        FROM VI_ITEM 
+        LEFT JOIN VI_ITEM on TIPOITEM_id=id 
+    </select>
     
 </mapper>

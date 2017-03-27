@@ -13,13 +13,12 @@ import java.util.List;
  */
 public interface ServiciosAlquiler {
 
-    
     public abstract int valorMultaRetrasoxDia();
     
     public abstract Cliente consultarCliente(long docu) throws ExcepcionServiciosAlquiler;
 
     /**
-     * @obj Consultar los items que tenga en su poder un cliente
+     * //obj Consultar los items que tenga en su poder un cliente
      * @param idcliente identificador del cliente
      * @return el litado de detalle de los items rentados por el cliente
      * identificado con 'idcliente'
@@ -32,13 +31,14 @@ public interface ServiciosAlquiler {
     public abstract Item consultarItem(int id) throws ExcepcionServiciosAlquiler;
 
     /**
-     * @obj consultar los items que estan disponibles para alquiler
+     * @throws edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler en caso de error al consultar items
+     * //obj consultar los items que estan disponibles para alquiler
      * @return el listado de items disponibles
      */
-    public abstract List<Item> consultarItemsDisponibles();
+    public abstract List<Item> consultarItemsDisponibles() throws ExcepcionServiciosAlquiler;
 
     /**
-     * @obj consultar el valor de la multa del alquiler, dado el id del item
+     * //obj consultar el valor de la multa del alquiler, dado el id del item
      * alquilado hasta la fecha dada como parametro
      * @param iditem el codigo del item alquilado
      * @param fechaDevolucion la fecha de devolucion del item
@@ -54,15 +54,15 @@ public interface ServiciosAlquiler {
     public abstract List<TipoItem> consultarTiposItem() throws ExcepcionServiciosAlquiler;
 
     /**
-     * @obj rejistrar el alkiler de un item
-     * @pre numdias >=1
-     * @param date fecha de rejistro del alquiler
+     * //obj registrar el alquiler de un item
+     * //pre numdias mayor o igual a 1
+     * @param date fecha de registro del alquiler
      * @param docu identificacion de a quien se le cargara el alquiler
      * @param item el identificador del item a alquilar
      * @param numdias el numero de dias que se le prestara el item
-     * @pos el item ya no debe estar disponible, y debe estar asignado al
+     * //pos el item ya no debe estar disponible, y debe estar asignado al
      * cliente
-     * @throws ExcepcionXX si el identificador no corresponde con un item, o si
+     * @throws ExcepcionServiciosAlquiler si el identificador no corresponde con un item, o si
      * el mismo ya esta alquilado
      */
     public abstract void registrarAlquilerCliente(Date date, long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler;
@@ -70,9 +70,9 @@ public interface ServiciosAlquiler {
     public abstract void registrarCliente(Cliente p) throws ExcepcionServiciosAlquiler;
 
     /**
-     * @obj registrar la devolucion de un item
+     * //obj registrar la devolucion de un item
      * @param iditem el item a regresar
-     * @pos el item se enuentra disponible para el alquiler y el usuario ya no
+     * //pos el item se enuentra disponible para el alquiler y el usuario ya no
      * lo tiene dentro de sus elementos rentados
      * @throws ExcepcionServiciosAlquiler si el item no existe o no se encuentra
      * alquilado
@@ -80,8 +80,8 @@ public interface ServiciosAlquiler {
     public abstract void registrarDevolucion(int iditem) throws ExcepcionServiciosAlquiler;
 
     /**
-     * @obj consultar el costo del alquiler de un item
-     * @pre numdias >=1
+     * //obj consultar el costo del alquiler de un item
+     * //PRE numdias mayor o igual a 1
      * @param iditem el codigo del item
      * @param numdias el numero de dias que se va a alquilar
      * @return el costo total del alquiler, teniendo en cuesta el costo diario y

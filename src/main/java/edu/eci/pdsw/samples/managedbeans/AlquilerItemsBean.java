@@ -14,7 +14,6 @@ import edu.eci.pdsw.samples.services.ServiciosAlquilerFactory;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -214,8 +213,9 @@ public class AlquilerItemsBean implements Serializable {
         }
     }
  
-    public AlquilerItemsBean() {
-        
+    public AlquilerItemsBean() throws ExcepcionServiciosAlquiler {
+       clientes= sp.consultarClientes();
+       items1 = sp.consultarItemsDisponibles();    
     }
     
     public void registrarse() throws ExcepcionServiciosAlquiler {
@@ -235,7 +235,7 @@ public class AlquilerItemsBean implements Serializable {
             costo = seleccionado1.getTarifaxDia();
             total = costo*dias;
         }
-        System.out.println("Jhgfdsasdfghjkjhgfdsadfghjkljhgfdsasdfghjklkjhgfdsdfghjk");
+        
         sp.registrarAlquilerCliente(java.sql.Date.valueOf(sdf.format(date)), documento, sp.consultarItem(codigo), dias);
         items = sp.consultarItemsCliente(documento);
         
