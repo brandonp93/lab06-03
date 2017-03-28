@@ -27,7 +27,7 @@
     <p:layoutUnit position="center" >
    
         <p:dataTable  var="clientes" value="#{AlquilerItems.clientes}" selectionMode="single" selection="#{AlquilerItems.seleccionado}" rowKey="#{clientes.documento}" >
-         <p:ajax event="rowSelect" listener="#{AlquilerItems.onRowSelect}" />
+     
             <p:column headerText="Id">
                         <h:outputText value="#{clientes.nombre}" />
                     </p:column>
@@ -37,6 +37,9 @@
    
         
     </p:dataTable>
+        <p:commandButton  value="Cliente" update="Formulario_RegistroClientes" action="RegistroClienteItem.xhtml" actionListener="#{AlquilerItems.onRowSelect()}"></p:commandButton>
+
+        
     </p:layoutUnit>
     </p:layout>
     </h:form>

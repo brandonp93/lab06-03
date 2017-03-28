@@ -241,7 +241,7 @@ public class AlquilerItemsBean implements Serializable {
         
     }
     
-    public void onRowSelect(SelectEvent event) throws IOException, ExcepcionServiciosAlquiler{
+    public void onRowSelect() throws IOException, ExcepcionServiciosAlquiler{
         if(seleccionado!=null){
             nombre = seleccionado.getNombre();    
             documento = seleccionado.getDocumento();
@@ -252,8 +252,8 @@ public class AlquilerItemsBean implements Serializable {
             
             }
     
-        sp.consultarItemsCliente(documento);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("RegistroClienteItem.xhtml");
+        //sp.consultarItemsCliente(documento);
+        //FacesContext.getCurrentInstance().getExternalContext().redirect("RegistroClienteItem.xhtml");
         
 
     }
