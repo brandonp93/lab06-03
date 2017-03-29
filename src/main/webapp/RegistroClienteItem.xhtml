@@ -8,12 +8,19 @@
         <p:layout style="min-width:400px;min-height:500px;">
             <p:layoutUnit position="west"  resizable="false" size="800">
                 <p:dataTable  var="ite" value="#{AlquilerItems.items}" selectionMode="single" selection="#{AlquilerItems.seleccionado2}" rowKey="#{ite.item.id}" >
+                    <p:column headerText="Id Renta">
+                        <h:outputText value="#{ite.id}" />
+                    </p:column>                    
                     <p:column headerText="Item">
                         <h:outputText value="#{ite.item.id}" />
-                </p:column> 
-                <p:column headerText="Item">
-                    <h:outputText value="#{ite.item.nombre}" />
-                </p:column> 
+                    </p:column> 
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{ite.item.nombre}" />
+                    </p:column>
+                    <p:column headerText="Devolucion">
+                        <h:outputText value="#{ite.fechafinrenta}" />
+                    </p:column>
+                    
                 </p:dataTable>
                 <br>Seleccione el producto para consultar la multa </br>
                 <br><p:outputLabel value="#{AlquilerItems.producto}" > </p:outputLabel> <font color="white"></font> <p:outputLabel value="#{AlquilerItems.multa}" > </p:outputLabel> </br>

@@ -18,6 +18,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.mybatis.guice.transactional.Transactional;
 
 /**
@@ -42,7 +43,7 @@ public class ServiciosAlquilerItemsImpl implements ServiciosAlquiler {
     @Override
     public Cliente consultarCliente(long docu) throws ExcepcionServiciosAlquiler {
         try {
-            return daoCliente.load((int) docu); //TODO DUDA ES LONG?
+            return daoCliente.load((int) docu);
         } catch (PersistenceException ex) {
             throw new ExcepcionServiciosAlquiler("Error al consultar el cliente con documento "+ docu, ex);
         }
@@ -51,7 +52,7 @@ public class ServiciosAlquilerItemsImpl implements ServiciosAlquiler {
     @Override
     public List<ItemRentado> consultarItemsCliente(long idcliente) throws ExcepcionServiciosAlquiler {
         try {
-            return daoCliente.load((int) idcliente).getRentados(); //TODO mismo de arriba
+            return daoCliente.load((int) idcliente).getRentados(); 
         } catch (PersistenceException ex) {
             throw new ExcepcionServiciosAlquiler("Error al consultar los items del cliente" + idcliente, ex);
         }
@@ -87,8 +88,10 @@ public class ServiciosAlquilerItemsImpl implements ServiciosAlquiler {
     @Override
     public long consultarMultaAlquiler(int iditem, Date fechaDevolucion) throws ExcepcionServiciosAlquiler {
         try {
-            ItemRentado ir = daoCliente.consultarItemRentado(iditem);
-            if (ir == null){
+            int oc = daoCliente.consultarItemRentado(iditem).getId();  
+            
+            return oc;
+           /* if (ir == null){
                 throw new ExcepcionServiciosAlquiler("El item no esta a la renta");
             }
             else{
@@ -97,7 +100,7 @@ public class ServiciosAlquilerItemsImpl implements ServiciosAlquiler {
                 long diasRetraso = ChronoUnit.DAYS.between(fechaMinimaEntrega, fechaEntrega);
                 return diasRetraso*MULTA_DIARIA;
                 
-            }
+            }*/
         } catch (PersistenceException ex) {
             throw new ExcepcionServiciosAlquiler("Error al consultar la multa del item rentado "+iditem, ex);
         }

@@ -14,11 +14,16 @@ import edu.eci.pdsw.samples.services.ServiciosAlquilerFactory;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import static java.time.LocalDate.now;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
+
+import java.time.LocalDate;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.swing.JOptionPane;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -53,6 +58,16 @@ public class AlquilerItemsBean implements Serializable {
     private long total;
     private long multa;
     private String producto;
+    private String idir;
+
+    public String getIdir() {
+        return idir;
+    }
+
+    public void setIdir(String idir) {
+        this.idir = idir;
+    }
+    
 
     public String getProducto() {
         return producto;
@@ -207,12 +222,23 @@ public class AlquilerItemsBean implements Serializable {
     }
     
     public void conMulta() throws ExcepcionServiciosAlquiler{
+        long diasRetraso;
         if(seleccionado2!=null){
             producto = "La multa para " + seleccionado2.getItem().getNombre() + " es de ";
-            multa = sp.consultarMultaAlquiler(seleccionado2.getItem().getId(), seleccionado2.getFechafinrenta());
-        }
+            LocalDate fechaMinimaEntrega=seleccionado2.getFechafinrenta().toLocalDate();
+            LocalDate fechaEntrega = now();
+            diasRetraso = ChronoUnit.DAYS.between(fechaMinimaEntrega, fechaEntrega);
+            if(diasRetraso>0){
+                multa = diasRetraso*5000;  
+            }
+            else{
+                multa = 0;
+            }
+                      
+        }    
     }
- 
+    
+     
     public AlquilerItemsBean() throws ExcepcionServiciosAlquiler {
        clientes= sp.consultarClientes();
        items1 = sp.consultarItemsDisponibles();    
@@ -249,8 +275,7 @@ public class AlquilerItemsBean implements Serializable {
             direccion = seleccionado.getDireccion();
             email = seleccionado.getEmail();
             items = sp.consultarItemsCliente(documento);
-            
-            }
+                    }
     
         //sp.consultarItemsCliente(documento);
         //FacesContext.getCurrentInstance().getExternalContext().redirect("RegistroClienteItem.xhtml");
