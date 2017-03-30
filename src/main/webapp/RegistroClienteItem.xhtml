@@ -7,7 +7,7 @@
     <h:form id="Formulario_RegistroClientes">
         <p:layout style="min-width:400px;min-height:500px;">
             <p:layoutUnit position="west"  resizable="false" size="800">
-                <p:dataTable  var="ite" value="#{AlquilerItems.items}" selectionMode="single" selection="#{AlquilerItems.seleccionado2}" rowKey="#{ite.item.id}" >
+                <p:dataTable  var="ite" value="#{AlquilerItems.consultarItemsCliente}" selectionMode="single" selection="#{AlquilerItems.rentar}" rowKey="#{ite.id}" >
                     <p:column headerText="Id Renta">
                         <h:outputText value="#{ite.id}" />
                     </p:column>                    
@@ -28,9 +28,9 @@
     </p:layoutUnit>
             
     <p:layoutUnit position="center" >
-          <br> Bienvenido <font color="white">.....</font><p:outputLabel value="#{AlquilerItems.nombre}" > <font color="white">.....</font>
-          </p:outputLabel> <p:outputLabel value="#{AlquilerItems.documento}" ></p:outputLabel></br>
-           <p:dataTable  var="items" value="#{AlquilerItems.items1}" selectionMode="single" selection="#{AlquilerItems.seleccionado1}" rowKey="#{items.id}" >
+        <br> Bienvenido <font color="white">.....</font><p:outputLabel value="#{AlquilerItems.usuario.nombre}" > <font color="white">.....</font>
+          </p:outputLabel> <p:outputLabel value="#{AlquilerItems.usuario.documento}" ></p:outputLabel></br>
+          <p:dataTable  var="items" value="#{AlquilerItems.consultarItemsDisponibles}" selectionMode="single" selection="#{AlquilerItems.disponibles}" rowKey="#{items.id}" >
             <p:column headerText="Item">
                         <h:outputText value="#{items.nombre}" />
                 </p:column>

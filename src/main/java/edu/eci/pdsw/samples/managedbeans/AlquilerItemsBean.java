@@ -11,20 +11,14 @@ import edu.eci.pdsw.samples.entities.ItemRentado;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.pdsw.samples.services.ServiciosAlquiler;
 import edu.eci.pdsw.samples.services.ServiciosAlquilerFactory;
-import java.io.IOException;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import static java.time.LocalDate.now;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 import java.time.LocalDate;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.swing.JOptionPane;
-import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -37,52 +31,65 @@ public class AlquilerItemsBean implements Serializable {
     
     ServiciosAlquiler sp = ServiciosAlquilerFactory.getInstance().getServiciosAlquiler();
     
-    
-    private String nombre;
-    private long documento;
-    private String telefono;
-    private String direccion;
-    private String email;
-    private Cliente seleccionado;
-    private ItemRentado seleccionado2;
-    private List<Cliente> clientes;
-    private List<Cliente> clientes1;
-    private List<Item> items1;
-    private List<ItemRentado> items;
     private int dias;
     private int codigo;
-    private Date date = new Date();
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    private Item seleccionado1;
+
     private long costo;
     private long total;
     private long multa;
+    
     private String producto;
-    private String idir;
+    private Cliente usuario;
+    private Cliente registrarC; 
+    private Item disponibles;
+    private ItemRentado rentar;
 
-    public String getIdir() {
-        return idir;
+    public ItemRentado getRentar() {
+        return rentar;
     }
 
-    public void setIdir(String idir) {
-        this.idir = idir;
+    public void setRentar(ItemRentado rentar) {
+        this.rentar = rentar;
+    }
+
+    public Item getDisponibles() {
+        return disponibles;
+    }
+
+    public void setDisponibles(Item disponibles) {
+        this.disponibles = disponibles;
+    }
+
+    public Cliente getRegistrarC() {
+        return registrarC;
+    }
+
+    public void setRegistrarC(Cliente registrarC) {
+        this.registrarC = registrarC;
     }
     
+    public List<Item> getConsultarItemsDisponibles() throws ExcepcionServiciosAlquiler{
+        return sp.consultarItemsDisponibles();
+    }
+    
+    public List<ItemRentado> getConsultarItemsCliente() throws ExcepcionServiciosAlquiler{
+        return sp.consultarItemsCliente(usuario.getDocumento());
+    }
+        
+    public Cliente getUsuario() {
+        return usuario;
+    }
 
+    public void setUsuario(Cliente usuario) {
+        this.usuario = usuario;
+    }
+    
     public String getProducto() {
         return producto;
     }
 
     public void setProducto(String producto) {
         this.producto = producto;
-    }
-
-    public ItemRentado getSeleccionado2() {
-        return seleccionado2;
-    }
-
-    public void setSeleccionado2(ItemRentado seleccionado2) {
-        this.seleccionado2 = seleccionado2;
     }
   
     public long getMulta() {
@@ -109,38 +116,6 @@ public class AlquilerItemsBean implements Serializable {
         this.total = total;
     }
             
-    public Item getSeleccionado1() {
-        return seleccionado1;
-    }
-
-    public void setSeleccionado1(Item seleccionado1) {
-        this.seleccionado1 = seleccionado1;
-    }
-    
-    public List<Item> getItems1() {
-        return items1;
-    }
-
-    public void setItems1(List<Item> items1) {
-        this.items1 = items1;
-    }
-
-    public List<ItemRentado> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ItemRentado> items) {
-        this.items = items;
-    }
-        
-     public List<Cliente> getClientes1() {
-        return clientes1;
-    }
-
-    public void setClientes1(List<Cliente> clientes1) {
-        this.clientes1 = clientes1;
-    }
-    
     public int getDias() {
         return dias;
     }
@@ -157,130 +132,41 @@ public class AlquilerItemsBean implements Serializable {
         this.codigo = codigo;
     }
 
-    public Date getDate() {
-        return date;
+    public List<Cliente> getConsultarClientes() throws ExcepcionServiciosAlquiler {
+        return sp.consultarClientes();
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Cliente getSeleccionado() {
-        return seleccionado;
-    }
-
-    public void setSeleccionado(Cliente seleccionado) {
-        this.seleccionado = seleccionado;
-    }
-   
-    public List<Cliente> getClientes() {
-        return clientes;
-    }
-
-    public void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
-    }
-    
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public long getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(long documento) {
-        this.documento = documento;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
     public void conMulta() throws ExcepcionServiciosAlquiler{
         long diasRetraso;
-        if(seleccionado2!=null){
-            producto = "La multa para " + seleccionado2.getItem().getNombre() + " es de ";
-            LocalDate fechaMinimaEntrega=seleccionado2.getFechafinrenta().toLocalDate();
-            LocalDate fechaEntrega = now();
-            diasRetraso = ChronoUnit.DAYS.between(fechaMinimaEntrega, fechaEntrega);
-            if(diasRetraso>0){
-                multa = diasRetraso*5000;  
-            }
-            else{
-                multa = 0;
-            }
-                      
-        }    
+        producto = "La multa para " + rentar.getItem().getNombre() + " es de ";
+        LocalDate fechaMinimaEntrega=rentar.getFechafinrenta().toLocalDate();
+        LocalDate fechaEntrega = now();
+        diasRetraso = ChronoUnit.DAYS.between(fechaMinimaEntrega, fechaEntrega);
+        if(diasRetraso>0){
+            multa = diasRetraso*5000;  
+        }
+        else{
+            multa = 0;
+        }  
     }
     
-     
     public AlquilerItemsBean() throws ExcepcionServiciosAlquiler {
-       clientes= sp.consultarClientes();
-       items1 = sp.consultarItemsDisponibles();    
+       registrarC = new Cliente();
     }
     
     public void registrarse() throws ExcepcionServiciosAlquiler {
-        sp.registrarCliente(new Cliente(nombre,documento,telefono,direccion,email));
-        clientes= sp.consultarClientes();       
+        sp.registrarCliente(registrarC);
     }
     public void ver(){
-        if(seleccionado1!=null){
-            costo = seleccionado1.getTarifaxDia();
-            total = costo*dias;
-        }
-        
+        costo = disponibles.getTarifaxDia();
+        total = costo*dias;
     }
+    
     public void rentar() throws ExcepcionServiciosAlquiler{
-        if(seleccionado1!=null){
-            codigo = seleccionado1.getId();
-            costo = seleccionado1.getTarifaxDia();
-            total = costo*dias;
-        }
-        
-        sp.registrarAlquilerCliente(java.sql.Date.valueOf(sdf.format(date)), documento, sp.consultarItem(codigo), dias);
-        items = sp.consultarItemsCliente(documento);
-        
-    }
-    
-    public void onRowSelect() throws IOException, ExcepcionServiciosAlquiler{
-        if(seleccionado!=null){
-            nombre = seleccionado.getNombre();    
-            documento = seleccionado.getDocumento();
-            telefono = seleccionado.getTelefono();
-            direccion = seleccionado.getDireccion();
-            email = seleccionado.getEmail();
-            items = sp.consultarItemsCliente(documento);
-                    }
-    
-        //sp.consultarItemsCliente(documento);
-        //FacesContext.getCurrentInstance().getExternalContext().redirect("RegistroClienteItem.xhtml");
-        
-
+        costo = disponibles.getTarifaxDia();
+        total = costo*dias;
+        sp.registrarAlquilerCliente(java.sql.Date.valueOf(LocalDate.now()), usuario.getDocumento(), sp.consultarItem(disponibles.getId()), dias);
+               
     }
 
 }
